@@ -17,7 +17,7 @@
 // Digital pin #2 is the same as Pin D2 see
 // http://arduino.cc/en/Hacking/PinMapping168 for the 'raw' pin mapping
 #define IRpin_PIN      PIND
-#define IRpin          2
+#define IRpin          4
 
 // the maximum pulse we'll listen for - 65 milliseconds is a long time
 #define MAXPULSE 65000
@@ -46,7 +46,7 @@ void loop(void) {
      // pin is still HIGH
 
      // count off another few microseconds
-     highpulse++;
+     highpulse+=RESOLUTION;
      delayMicroseconds(RESOLUTION);
 
      // If the pulse is too long, we 'timed out' - either nothing
@@ -64,7 +64,7 @@ void loop(void) {
   // same as above
   while (! (IRpin_PIN & _BV(IRpin))) {
      // pin is still LOW
-     lowpulse++;
+     lowpulse+=RESOLUTION;
      delayMicroseconds(RESOLUTION);
      if ((lowpulse >= MAXPULSE)  && (currentpulse != 0)) {
        printpulses();
